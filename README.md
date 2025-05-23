@@ -67,13 +67,25 @@
     .rank:nth-child(odd) {
       background-color: #2c2c2c;
     }
-    a {
-      color: #4fc3f7;
-      text-decoration: none;
-      font-weight: bold;
+    .ranking-table {
+      margin: 30px auto;
+      max-width: 500px;
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px black;
     }
-    a:hover {
-      color: #81d4fa;
+    .ranking-table h3 {
+      color: #ffd600;
+      margin-bottom: 20px;
+    }
+    .ranking-table ul {
+      list-style: none;
+      padding: 0;
+    }
+    .ranking-table li {
+      padding: 10px;
+      border-bottom: 1px solid #555;
     }
     footer {
       background-color: #111;
@@ -83,40 +95,63 @@
       margin-top: 40px;
       border-top: 2px solid #444;
     }
-
-    /* جدول رده‌بندی */
-    #rankingContainer {
+    /* فرم ثبت نام */
+    #registerFormContainer {
       display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      background: #222;
+      background-color: #222;
       padding: 25px;
       border-radius: 15px;
       box-shadow: 0 0 20px #000;
-      z-index: 1001;
-      color: white;
       max-width: 400px;
       width: 90%;
-    }
-    #rankingContainer ol {
+      z-index: 1000;
       text-align: right;
-      padding-right: 20px;
     }
-    #rankingContainer button {
-      margin-top: 15px;
+    #registerFormContainer.active {
+      display: block;
+    }
+    #registerFormContainer label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    #registerFormContainer input, 
+    #registerFormContainer select {
       width: 100%;
-      padding: 10px;
-      background: #d32f2f;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    #registerFormContainer button {
+      background-color: #d32f2f;
       color: white;
       border: none;
+      padding: 12px;
+      width: 100%;
       border-radius: 8px;
-      font-weight: bold;
+      font-size: 18px;
       cursor: pointer;
+      font-weight: bold;
     }
-    #rankingContainer button:hover {
-      background: #ff5252;
+    #registerFormContainer .closeBtn {
+      background-color: #555;
+      margin-top: 10px;
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top:0; left:0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 900;
+    }
+    #overlay.active {
+      display: block;
     }
   </style>
 </head>
@@ -125,9 +160,10 @@
 <header>
   پرایم ایکس کرفت 🌟
   <nav>
-    <a href="#" onclick="showRanking()">رده‌بندی</a>
+    <a id="showRegisterForm">ثبت نام</a>
     <a href="admin.html">مدیریت</a>
     <a href="#about">درباره ما</a>
+    <a href="#ranking">رده‌بندی پول‌ها</a>
   </nav>
 </header>
 
@@ -155,8 +191,82 @@
   </p>
 </section>
 
+<section id="ranking" class="ranking-table">
+  <h3>🏆 رده‌بندی پول‌ها</h3>
+  <ul>
+    <li>1. Ali13246876</li>
+    <li>2. CD_19</li>
+    <li>3. amir13241324</li>
+    <li>4. maliali1213</li>
+    <li>5. asal_kitty</li>
+    <li>6. xihm</li>
+  </ul>
+</section>
+
 <section id="about" style="margin-top:40px; padding: 0 20px; max-width: 600px; margin-left:auto; margin-right:auto; text-align: justify;">
   <h2>درباره ما</h2>
   <p>
-    این سرور یکی از سرورهای خیلی عالی است که به دست تیم سازنده و بیلدرها درست شده.  
-    این سرور خیلی بزرگ است و با مدیریت <strong>CD_19</strong> و <strong>Ali13246876</strong> مدیریت می‌…
+    این سرور یکی از سرورهای خیلی عالی است که به دست تیم سازنده و بیلدرها ساخته شده.  
+    با مدیریت <strong>CD_19</strong> و <strong>Ali13246876</strong> اداره میشه.  
+    این سرور قابلیت‌های بزرگی مثل رنک، اقتصاد، رویداد و غیره داره.  
+    این سایت هم توسط تیم <strong>علی ایکس گیمر</strong> طراحی و تولید شده است.
+  </p>
+</section>
+
+<footer>
+  © 2025 - Prime X Craft | طراحی شده توسط <strong>تیم علی ایکس گیمر</strong> 🎮
+</footer>
+
+<!-- فرم ثبت نام پاپ‌آپ -->
+<div id="overlay"></div>
+<div id="registerFormContainer">
+  <h2>ثبت نام در پرایم ایکس کرفت</h2>
+  <form id="registerForm">
+    <label for="name">نام و نام خانوادگی:</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="phone">شماره تلفن:</label>
+    <input type="tel" id="phone" name="phone" required pattern="^09\d{9}$" placeholder="مثال: 09123456789" />
+
+    <label for="rank">رنک مورد نظر:</label>
+    <select id="rank" name="rank" required>
+      <option value="">انتخاب کنید</option>
+      <option value="اسپانسر">اسپانسر</option>
+      <option value="ساپر">ساپر</option>
+      <option value="امرالد">امرالد</option>
+      <option value="دایمند">دایمند</option>
+      <option value="گلد">گلد</option>
+      <option value="ایرون">ایرون</option>
+    </select>
+
+    <label for="xpKey">آیا ایکس پی کیلید می‌خوای؟</label>
+    <select id="xpKey" name="xpKey" required>
+      <option value="">انتخاب کنید</option>
+      <option value="بله">بله</option>
+      <option value="خیر">خیر</option>
+    </select>
+
+    <button type="submit">ثبت نام</button>
+    <button type="button" class="closeBtn" id="closeRegisterForm">انصراف</button>
+  </form>
+</div>
+
+<script>
+  const showFormBtn = document.getElementById("showRegisterForm");
+  const closeFormBtn = document.getElementById("closeRegisterForm");
+  const formContainer = document.getElementById("registerFormContainer");
+  const overlay = document.getElementById("overlay");
+
+  showFormBtn.onclick = () => {
+    formContainer.classList.add("active");
+    overlay.classList.add("active");
+  };
+
+  closeFormBtn.onclick = () => {
+    formContainer.classList.remove("active");
+    overlay.classList.remove("active");
+  };
+</script>
+
+</body>
+</html>
