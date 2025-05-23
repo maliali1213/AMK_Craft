@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <title>پنل مدیریت - پرایم ایکس کرفت</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: Tahoma, sans-serif;
+      background-color: #121212;
+      color: white;
+      direction: rtl;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff5252;
+      text-align: center;
+    }
+    #loginForm, #adminContent {
+      max-width: 500px;
+      margin: 50px auto;
+      background-color: #1f1f1f;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #000;
+    }
+    input[type="password"], button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #d32f2f;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff5252;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>پنل مدیریت پرایم ایکس کرفت 🛡️</h1>
+
+<div id="loginForm">
+  <p>برای ورود به پنل مدیریت رمز عبور را وارد کنید:</p>
+  <input type="password" id="adminPass" placeholder="رمز عبور">
+  <button onclick="checkPassword()">ورود</button>
+</div>
+
+<div id="adminContent" class="hidden">
+  <h2>سلام مدیر 👑</h2>
+  <p>در اینجا می‌تونی اطلاعات ثبت‌نام‌ها را ببینی یا بررسی کنی (نمایشی است).</p>
+  <p>برای اطلاعات واقعی باید سایت سمت سرور و پایگاه‌داده داشته باشه.</p>
+</div>
+
+<script>
+  const correctPassword = "primeadmin"; // رمز عبور دلخواهتو اینجا تغییر بده
+
+  function checkPassword() {
+    const input = document.getElementById("adminPass").value;
+    if (input === correctPassword) {
+      document.getElementById("loginForm").classList.add("hidden");
+      document.getElementById("adminContent").classList.remove("hidden");
+    } else {
+      alert("رمز اشتباه است ❌");
+    }
+  }
+</script>
+
+</body>
+</html>
