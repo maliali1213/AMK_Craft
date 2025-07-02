@@ -173,7 +173,7 @@
 
 <section>
   <h2>رنک می‌خوای؟</h2>
-  <div class="rank">🎖 بهترین رنک: <strong>اسپانسر</strong></div>
+  <div class="rank">🎖 بهترین رنک: <strong>PrimeMan</strong></div>
   <div class="rank">🥇 ساپر</div>
   <div class="rank">🥈 امرالد</div>
   <div class="rank">🥉 دایمند</div>
