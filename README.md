@@ -168,7 +168,7 @@
 </header>
 
 <div class="server-id">
-  🎮 آیدی سرور: <strong>primexcraft.aternos.me</strong>
+  🎮 آیدی سرور: <strong>85.133.205.111</strong>
 </div>
 
 <section>
